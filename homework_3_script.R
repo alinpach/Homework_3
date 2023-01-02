@@ -60,4 +60,15 @@ plot(rgdpna, pop, main="GDP and population",
      xlab="real GDP at constant prices of 2017 (in million USD", ylab="Population in Millions",
      pch = 19, frame = FALSE)
 
+
+## 1d #############################################
+
+# regression model y=log(real GDP), x1=log(capital stock), x2=log(population), x3=log(productivity)
+reg_log_gdp_capital_popul_product <- lm(log(rgdpna) ~ log(rnna) + log(pop) + log(rtfpna))
+summary(reg_log_gdp_capital_popul_product)
+
+
+## 1e #############################################
+
+
 ###################################################
