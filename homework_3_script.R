@@ -50,6 +50,14 @@ summary(reg_gdp_capital_popul_product)
 
 ## 1c #############################################
 
+plot(rgdpna, rnna, main = "GDP and capital stock",
+     xlab = "real GDP at constant prices of 2017 (in million USD", ylab = "Capital stock at constant prices of 2017",
+     pch = 19, frame = FALSE)
+abline(lm(rgdpna ~ rnna), col = "blue")
+# regression line or data points not correct!!! -> needs to be changed
 
+plot(rgdpna, pop, main="GDP and population",
+     xlab="real GDP at constant prices of 2017 (in million USD", ylab="Population in Millions",
+     pch = 19, frame = FALSE)
 
 ###################################################
