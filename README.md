@@ -6,3 +6,17 @@
 # interpretation of results not done jet
 # need a break now :)
 # have fun with continuing
+
+# started with exercise 2
+
+# 1a) 
+# 1b) 
+# 1c) 
+# 1d) 
+# 1e) 
+# 1f) 
+
+# 2a) done
+# 2b) done
+# 2c) started
+# 2d) 

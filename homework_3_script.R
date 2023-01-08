@@ -87,3 +87,13 @@ summary(reg_log_gdp_capital_popul_product)
 ## specification (3)
 ## p-value for a two-sided hypothesis test 
 2*(1-pt((.100/.049), df=171))
+
+## 2b #############################################
+
+## ceoten
+## p-value for a two-sided hypothesis test 
+2*(1-pt((.017/.006), df=171))
+
+## comten
+## p-value for a two-sided hypothesis test 
+2*(1-pt(3, df=171))
