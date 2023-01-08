@@ -12,7 +12,7 @@ library(readxl)
 pwt100 <- read_excel("pwt100.xlsx", sheet = "Data")
 View(pwt100)
 
-# creating a new dataframe only with the relevant variables
+# creating a new data frame only with the relevant variables
 
 data_reg <- data.frame(pwt100$rgdpna, pwt100$rnna, pwt100$rtfpna, pwt100$pop, pwt100$emp, pwt100$avh, pwt100$hc)
 colnames(data_reg)[1] = "rgdpna"
@@ -24,6 +24,10 @@ colnames(data_reg)[6] = "avh"
 colnames(data_reg)[7] = "hc"
 data_reg
 
+# filter year
+
+filter()
+
 ## 1a #############################################
 
 # linear regression model y=real GDP, x1=capital stock
@@ -33,8 +37,8 @@ rnna <- data_reg$rnna
 reg_gdp_capital <- lm(rgdpna ~ rnna)
 summary(reg_gdp_capital)
 
-# The gross domestic product of a country is not only detrement by the country's accessable capital.
-# Other factors like population, empolyment, technology, human capital factors and prodictivity effect GDP as well.
+# The gross domestic product of a country is not only determined by the country's accessible capital.
+# Other factors like population, employment, technology, human capital factors and productivity effect GDP as well.
 # Therefore the regression reg_gdp_capital has high omitted variable bios.
 
 
@@ -72,3 +76,14 @@ summary(reg_log_gdp_capital_popul_product)
 
 
 ###################################################
+# Exercise 2
+
+## 2a #############################################
+
+## specification (2)
+## p-value for a two-sided hypothesis test 
+2*(1-pt(2.24, df=173))
+
+## specification (3)
+## p-value for a two-sided hypothesis test 
+2*(1-pt((.100/.049), df=171))
