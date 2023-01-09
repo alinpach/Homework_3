@@ -14,25 +14,27 @@ View(pwt100)
 
 # creating a new data frame only with the relevant variables
 
-data_reg <- data.frame(pwt100$rgdpna, pwt100$rnna, pwt100$rtfpna, pwt100$pop, pwt100$emp, pwt100$avh, pwt100$hc)
-colnames(data_reg)[1] = "rgdpna"
-colnames(data_reg)[2] = "rnna"
-colnames(data_reg)[3] = "rtfpna"
-colnames(data_reg)[4] = "pop"
-colnames(data_reg)[5] = "emp"
-colnames(data_reg)[6] = "avh"
-colnames(data_reg)[7] = "hc"
+data_reg <- data.frame(pwt100$country, pwt100$year, pwt100$rgdpna, pwt100$rnna, pwt100$rtfpna, pwt100$pop, pwt100$emp, pwt100$avh, pwt100$hc)
+colnames(data_reg)[1] = "country"
+colnames(data_reg)[2] = "year"
+colnames(data_reg)[3] = "rgdpna"
+colnames(data_reg)[4] = "rnna"
+colnames(data_reg)[5] = "rtfpna"
+colnames(data_reg)[6] = "pop"
+colnames(data_reg)[7] = "emp"
+colnames(data_reg)[8] = "avh"
+colnames(data_reg)[9] = "hc"
 data_reg
 
 # filter year
-
-filter()
+data_2019 <- data_reg[data_reg$year == "2019",]
+data_2019
 
 ## 1a #############################################
 
 # linear regression model y=real GDP, x1=capital stock
-rgdpna <- data_reg$rgdpna
-rnna <- data_reg$rnna
+rgdpna <- data_2019$rgdpna
+rnna <- data_2019$rnna
 
 reg_gdp_capital <- lm(rgdpna ~ rnna)
 summary(reg_gdp_capital)
@@ -45,8 +47,8 @@ summary(reg_gdp_capital)
 ## 1b #############################################
 
 # linear regression model y=real GDP, x1=capital stock, x2=population, x3=productivity
-pop <- data_reg$pop
-rtfpna <- data_reg$rtfpna
+pop <- data_2019$pop
+rtfpna <- data_2019$rtfpna
 
 reg_gdp_capital_popul_product <- lm(rgdpna ~ rnna + pop + rtfpna)
 summary(reg_gdp_capital_popul_product)
@@ -56,13 +58,13 @@ summary(reg_gdp_capital_popul_product)
 
 plot(rgdpna, rnna, main = "GDP and capital stock",
      xlab = "real GDP at constant prices of 2017 (in million USD", ylab = "Capital stock at constant prices of 2017",
-     pch = 19, frame = FALSE)
+     pch = 1, frame = FALSE)
 abline(lm(rgdpna ~ rnna), col = "blue")
 # regression line or data points not correct!!! -> needs to be changed
 
-plot(rgdpna, pop, main="GDP and population",
+plot(rgdpna, pop, main ="GDP and population",
      xlab="real GDP at constant prices of 2017 (in million USD", ylab="Population in Millions",
-     pch = 19, frame = FALSE)
+     pch = 1, frame = FALSE)
 
 
 ## 1d #############################################
