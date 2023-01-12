@@ -59,23 +59,86 @@ summary(reg_gdp_capital_popul_product)
 plot(rgdpna, rnna, main = "GDP and capital stock",
      xlab = "real GDP at constant prices of 2017 (in million USD", ylab = "Capital stock at constant prices of 2017",
      pch = 1, frame = FALSE)
-abline(lm(rgdpna ~ rnna), col = "blue")
-# regression line or data points not correct!!! -> needs to be changed
+# relationship looks linear
 
 plot(rgdpna, pop, main ="GDP and population",
      xlab="real GDP at constant prices of 2017 (in million USD", ylab="Population in Millions",
      pch = 1, frame = FALSE)
+# relationship looks also linear bit with bigger variance
 
 
 ## 1d #############################################
 
 # regression model y=log(real GDP), x1=log(capital stock), x2=log(population), x3=log(productivity)
-reg_log_gdp_capital_popul_product <- lm(log(rgdpna) ~ log(rnna) + log(pop) + log(rtfpna))
-summary(reg_log_gdp_capital_popul_product)
+log_rgdpna <- log(rgdpna)
+log_rnna <- log(rnna)
+log_pop <- log(pop)
+log_rtfpna <- log(rtfpna)
+
+reg_log <- lm(log_rgdpna ~ log_rnna + log_pop + log_rtfpna)
+summary(reg_log)
 
 
 ## 1e #############################################
 
+# H_0 = beta_1 + beta_2 = 0
+# oder:
+# H_1 = beta_1 + beta_2 = 1
+# H_0 = beta_1 + beta_2 != 1
+reg_log_coefficiants <- as.matrix(reg_log$coefficients)
+reg_log_coefficiants
+
+beta_1 <- reg_log_coefficiants[2]
+beta_2 <- reg_log_coefficiants[3]
+
+var_beta_1 <- vcov(reg_log)[2,2]
+var_beta_2 <- vcov(reg_log)[3,3]
+cov_beta_1_2 <- vcov(reg_log)[2,3]
+
+se_beta_1_2 <- sqrt(var_beta_1 + var_beta_2 + 2*cov_beta_1_2)
+
+t <- (beta_1 + beta_2 - 1)/se_beta_1_2
+t
+
+# für 5%iges Signifikanzniveau
+t_statistic <- abs(t)
+c.0025 <- 1.96
+if((t_statistic > c.0025)){
+  print("reject H_0")
+  } else
+    print("do not reject H_0")
+
+
+beta_sum <- log_rnna + log_pop
+beta_sum
+
+reg_beta_sum <- lm(log_rgdpna ~ beta_sum)
+summary(reg_beta_sum)
+se_beta_sum <- 0.5641
+
+reg_beta_sum$coefficients
+beta_sum <- reg_beta_sum$coefficients[2]
+beta_sum
+t_2 <- beta_sum/se_beta_sum
+t_2
+
+# für 5%iges Signifikanzniveau
+t_statistic_2 <- abs(t_2)
+c.0025 <- 1.96
+if((t_statistic_2 > c.0025)){
+  print("reject H_0")
+} else
+  print("do not reject H_0")
+
+
+## 1f #############################################
+
+reg_log_rnna_pop <- lm(log_rgdpna ~ log_rnna + log_pop)
+summary(reg_log_rnna_pop)
+
+log_emp <- log(data_2019$emp)
+reg_log_emp_pop <- lm(log_rgdpna ~ log_emp + log_pop)
+summary(reg_log_emp_pop)
 
 ###################################################
 # Exercise 2
