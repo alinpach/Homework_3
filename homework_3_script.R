@@ -41,7 +41,7 @@ summary(reg_gdp_capital)
 
 # The gross domestic product of a country is not only determined by the country's accessible capital.
 # Other factors like population, employment, technology, human capital factors and productivity effect GDP as well.
-# Therefore the regression reg_gdp_capital has high omitted variable bios.
+# Therefore, the regression reg_gdp_capital has an omitted variable bias.
 
 
 ## 1b #############################################
@@ -99,3 +99,22 @@ summary(reg_log_gdp_capital_popul_product)
 ## comten
 ## p-value for a two-sided hypothesis test 
 2*(1-pt(3, df=171))
+
+## 2c #############################################
+
+## 10% significance niveau 
+
+cv10 <- qf(0.995, 2, 171)
+cv10
+
+## 5% significance niveau
+
+cv5 <- qf(0.995, 2, 171)
+cv5
+
+## 1% significance niveau
+
+cv1 <- qf(0.995, 2, 171)
+cv1
+
+## 2d #############################################
