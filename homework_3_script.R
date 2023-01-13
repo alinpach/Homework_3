@@ -167,12 +167,12 @@ summary(reg_log_emp_pop)
 
 ## 10% significance niveau 
 
-cv10 <- qf(0.995, 2, 171)
+cv10 <- qf(0.95, 2, 171)
 cv10
 
 ## 5% significance niveau
 
-cv5 <- qf(0.995, 2, 171)
+cv5 <- qf(0.975, 2, 171)
 cv5
 
 ## 1% significance niveau

@@ -23,6 +23,6 @@
 
 # 2a) done
 # 2b) done
-# 2c) started
-# 2d) 
+# 2c) done
+# 2d) done
 >>>>>>> 2124eb8184a426ad1a928d724d4cef1464b4b528
