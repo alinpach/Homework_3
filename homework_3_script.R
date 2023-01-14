@@ -6,6 +6,7 @@
 
 ###################################################
 # Exercise 1
+###################################################
 
 library(tidyverse)
 library(readxl)
@@ -48,17 +49,30 @@ rtfpna <- data_2019$rtfpna
 reg_gdp_capital_popul_product <- lm(rgdpna ~ rnna + pop + rtfpna)
 summary(reg_gdp_capital_popul_product)
 
+# F test
+
+
+
+qf(0.95, 2, 177)
+
+
 ## 1c #############################################
 
-plot(rgdpna, rnna, main = "GDP and capital stock",
-     xlab = "real GDP at constant prices of 2017 (in million USD", ylab = "Capital stock at constant prices of 2017",
-     pch = 1, frame = FALSE)
-# relationship looks linear
+## real GDP and stock of capital
 
-plot(rgdpna, pop, main ="GDP and population",
-     xlab="real GDP at constant prices of 2017 (in million USD", ylab="Population in Millions",
-     pch = 1, frame = FALSE)
-# relationship looks also linear bit with bigger variance
+ggplot(data = data_2019, aes(rnna,rgdpna)) +
+  geom_point() +
+  labs(title = "Real GDP and stock of capital", x = "Capital stock", y = "Real GDP") +
+  theme_bw()
+# relationship looks linear 
+
+## real GDP and population
+
+ggplot(data = data_2019, aes(pop,rgdpna)) +
+  geom_point() +
+  labs(title = "Real GDP and population", x = "Population", y = "Real GDP") +
+  theme_bw()
+# relationship looks also linear but with bigger variance
 
 
 ## 1d #############################################
@@ -79,6 +93,7 @@ summary(reg_log)
 # oder:
 # H_1 = beta_1 + beta_2 = 1
 # H_0 = beta_1 + beta_2 != 1
+
 reg_log_coefficiants <- as.matrix(reg_log$coefficients)
 reg_log_coefficiants
 
@@ -102,6 +117,30 @@ if((t_statistic > c.0025)){
   } else
     print("do not reject H_0")
 
+################### Christoph
+
+data_2019$beta_1_2_sum <- data_2019$rnna + data_2019$pop
+data_2019$log_beta_1_2_sum <- log(data_2019$beta_1_2_sum)
+
+reg_beta_1_2_sum <- lm(data = data_2019, log_rgdpna ~ log_beta_1_2_sum + log_rtfpna)
+summary(reg_beta_1_2_sum)
+
+reg_beta_1_2_sum$coefficients
+beta_1_2_sum <- reg_beta_1_2_sum$coefficients[2]
+beta_1_2_sum
+
+...
+
+# für 5%iges Signifikanzniveau
+t_statistic_2 <- abs(t_2)
+c.0025 <- 1.96
+if((t_statistic_2 > c.0025)){
+  print("reject H_0")
+} else
+  print("do not reject H_0")
+
+
+################### Alina
 
 beta_sum <- log_rnna + log_pop
 beta_sum
@@ -130,12 +169,16 @@ if((t_statistic_2 > c.0025)){
 reg_log_rnna_pop <- lm(log_rgdpna ~ log_rnna + log_pop)
 summary(reg_log_rnna_pop)
 
-log_emp <- log(data_2019$emp)
-reg_log_emp_pop <- lm(log_rgdpna ~ log_emp + log_pop)
+emp <- data_2019$emp
+log_emp <- log(emp)
+
+reg_log_emp_pop <- lm(log_rgdpna ~ log_rnna + log_emp)
 summary(reg_log_emp_pop)
+
 
 ###################################################
 # Exercise 2
+###################################################
 
 ## 2a #############################################
 
