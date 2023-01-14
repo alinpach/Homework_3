@@ -39,11 +39,6 @@ rnna <- data_2019$rnna
 reg_gdp_capital <- lm(rgdpna ~ rnna)
 summary(reg_gdp_capital)
 
-# The gross domestic product of a country is not only determined by the country's accessible capital.
-# Other factors like population, employment, technology, human capital factors and productivity effect GDP as well.
-# Therefore, the regression reg_gdp_capital has an omitted variable bias.
-
-
 ## 1b #############################################
 
 # linear regression model y=real GDP, x1=capital stock, x2=population, x3=productivity
@@ -52,7 +47,6 @@ rtfpna <- data_2019$rtfpna
 
 reg_gdp_capital_popul_product <- lm(rgdpna ~ rnna + pop + rtfpna)
 summary(reg_gdp_capital_popul_product)
-
 
 ## 1c #############################################
 
