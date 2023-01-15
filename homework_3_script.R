@@ -49,11 +49,24 @@ rtfpna <- data_2019$rtfpna
 reg_gdp_capital_popul_product <- lm(rgdpna ~ rnna + pop + rtfpna)
 summary(reg_gdp_capital_popul_product)
 
-# F test
+# F-Test 
+# H_0 = beta_pop + beta_rnna = 0
+# F = ((SSRr-SSRur)/q) / (SSRur/(n-k-1))
 
+SSRur <- sum(reg_gdp_capital_popul_product$residuals^2)
+reg_gdp_product <- lm(rgdpna ~ rtfpna)
+SSRr <- sum((reg_gdp_product$residuals^2))
 
+F_statistic <- ((SSRr - SSRur)/2)/(SSRur/(183-5-1))
+critical_value <- qf(0.95, 2, (183-5-1))
+F_statistic
+critical_value
 
-qf(0.95, 2, 177)
+# for 5% significanc level
+if((abs(F_statistic) > critical_value)){
+  print("reject H_0")
+  } else
+  print("do not reject H_0")
 
 
 ## 1c #############################################
