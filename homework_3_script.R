@@ -102,10 +102,7 @@ summary(reg_log)
 
 ## 1e #############################################
 
-# H_0 = beta_1 + beta_2 = 0
-# oder:
-# H_1 = beta_1 + beta_2 = 1
-# H_0 = beta_1 + beta_2 != 1
+# H_0 = beta_1 + beta_2 = 1
 
 reg_log_coefficiants <- as.matrix(reg_log$coefficients)
 reg_log_coefficiants
@@ -119,7 +116,7 @@ cov_beta_1_2 <- vcov(reg_log)[2,3]
 
 se_beta_1_2 <- sqrt(var_beta_1 + var_beta_2 + 2*cov_beta_1_2)
 
-t <- (beta_1 + beta_2 - 1)/se_beta_1_2
+t <- ((beta_1 + beta_2) - 1)/se_beta_1_2
 t
 
 # für 5%iges Signifikanzniveau
@@ -130,47 +127,23 @@ if((t_statistic > c.0025)){
   } else
     print("do not reject H_0")
 
-################### Christoph
 
-data_2019$beta_1_2_sum <- data_2019$rnna + data_2019$pop
-data_2019$log_beta_1_2_sum <- log(data_2019$beta_1_2_sum)
+# H_0 = beta_1+2 = 1
 
-reg_beta_1_2_sum <- lm(data = data_2019, log_rgdpna ~ log_beta_1_2_sum + log_rtfpna)
-summary(reg_beta_1_2_sum)
+beta_sum <- data_2019$rnna + data_2019$pop
+log_beta_sum <- log(beta_sum)
 
-reg_beta_1_2_sum$coefficients
-beta_1_2_sum <- reg_beta_1_2_sum$coefficients[2]
-beta_1_2_sum
-
-...
-
-# für 5%iges Signifikanzniveau
-t_statistic_2 <- abs(t_2)
-c.0025 <- 1.96
-if((t_statistic_2 > c.0025)){
-  print("reject H_0")
-} else
-  print("do not reject H_0")
-
-
-################### Alina
-
-beta_sum <- log_rnna + log_pop
-beta_sum
-
-reg_beta_sum <- lm(log_rgdpna ~ beta_sum)
+reg_beta_sum <- lm(log_rgdpna ~ log_beta_sum + log_rtfpna)
 summary(reg_beta_sum)
-se_beta_sum <- 0.5641
+se_beta_sum <- 0.01992
 
 reg_beta_sum$coefficients
-beta_sum <- reg_beta_sum$coefficients[2]
-beta_sum
-t_2 <- beta_sum/se_beta_sum
+
+t_2 <- (coef(reg_beta_sum)[2] - 1)/se_beta_sum
 t_2
 
 # für 5%iges Signifikanzniveau
 t_statistic_2 <- abs(t_2)
-c.0025 <- 1.96
 if((t_statistic_2 > c.0025)){
   print("reject H_0")
 } else
