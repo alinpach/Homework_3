@@ -3,10 +3,10 @@
 # applied economics homework_3
 
 # 1a) done
-# 1b) hypothesis testing missing (F test)
+# 1b) done
 # 1c) done
 # 1d) done
-# 1e) started (other version of Hypothesis 2 by Chris) - version 2 not done
+# 1e) done
 # 1f) done
 
 # 2a) done
