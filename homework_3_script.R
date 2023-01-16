@@ -85,7 +85,7 @@ ggplot(data = data_2019, aes(pop,rgdpna)) +
   geom_point() +
   labs(title = "Real GDP and population", x = "Population", y = "Real GDP") +
   theme_bw()
-# relationship looks also linear but with bigger variance
+# relationship looks not linear (higher variance)
 
 
 ## 1d #############################################
